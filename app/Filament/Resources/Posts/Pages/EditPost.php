@@ -16,4 +16,8 @@ class EditPost extends EditRecord
             DeleteAction::make(),
         ];
     }
+    protected function ferRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }
