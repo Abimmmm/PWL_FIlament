@@ -33,14 +33,24 @@ class PostForm
                                 Group::make()
                                     ->schema([
                                         TextInput::make('title')
-                                            ->minLength(5)
-                                            ->required(),
+                                            ->rules('required | min:5')
+                                            ->validationMessages([
+                                                'unique' => 'The slug must be unique.',
+                                                'required' => 'The slug is required.',
+                                                'min' => 'harus diisi minimal :min karakter.',
+                                            ]),
                                         TextInput::make('slug')
-                                            ->unique(ignoreRecord: true)
-                                            ->required(),
+                                            ->unique()
+                                            ->rules('required | min:3')
+                                            ->validationMessages([
+                                                'unique' => 'The slug must be unique.',
+                                                'required' => 'The slug is required.',
+                                                'min' => 'harus diisi minimal :min karakter.',
+                                            ]),
                                         Select::make('category_id')
                                             ->relationship('category', 'name')
                                             ->preload()
+                                            ->required()
                                             ->searchable(),
                                         ColorPicker::make('color'),
                                     ])->columns(2),
@@ -60,8 +70,9 @@ class PostForm
                             ->schema([
                                 FileUpload::make('image')
                                     ->disk('public')
+                                    ->required()
                                     ->directory('posts')
-                                    ->image(), // Memastikan file yag diupload adalah gambar
+                                    ->image(), 
                             ]),
 
                         Section::make('Meta Information')

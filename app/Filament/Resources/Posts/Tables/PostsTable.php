@@ -29,6 +29,15 @@ class PostsTable
                     ->trueIcon('heroicon-o-check-circle')
                     ->falseIcon('heroicon-o-x-circle'),
                 //
+                TextColumn::make('published')
+                    ->badge() // Mengaktifkan fitur badge
+                    ->label('Status')
+                    ->getStateUsing(fn ($record): string => $record->published ? 'Published' : 'Draft')
+                    ->color(fn (string $state): string => match ($state) {
+                        'Published' => 'success', // Hijau
+                        'Draft' => 'danger',     // Merah
+                        default => 'gray',
+                    }),
             ])
             ->filters([
                 //

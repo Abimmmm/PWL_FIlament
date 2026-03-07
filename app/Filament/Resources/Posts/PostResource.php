@@ -13,6 +13,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Filament\Tables\Columns\IconColumn;
 
 class PostResource extends Resource
 {
@@ -29,7 +30,14 @@ class PostResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return PostsTable::configure($table);
+       return $table
+        ->columns([
+            IconColumn::make('is_active')
+                ->label('Status')
+                ->boolean()
+                ->trueColor('success')
+                ->falseColor('danger'),
+        ]);
     }
 
     public static function getRelations(): array
@@ -47,4 +55,5 @@ class PostResource extends Resource
             'edit' => EditPost::route('/{record}/edit'),
         ];
     }
+    
 }
