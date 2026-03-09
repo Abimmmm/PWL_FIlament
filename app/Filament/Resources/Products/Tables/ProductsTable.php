@@ -8,6 +8,7 @@ use Filament\Actions\EditAction;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Actions\ViewAction; 
 
 class ProductsTable
 {
@@ -26,7 +27,9 @@ class ProductsTable
             ->filters([
                 //
             ])
+            
             ->recordActions([
+                ViewAction::make(),
                 EditAction::make(),
             ])
             ->toolbarActions([

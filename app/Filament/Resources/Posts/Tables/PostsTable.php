@@ -17,12 +17,25 @@ class PostsTable
     {
         return $table
             ->columns([
-                TextColumn::make('title'),
-                TextColumn::make('slug'),
-                TextColumn::make('category.name'),
-                ColorColumn::make('color'),
+                TextColumn::make('title')
+                    ->label('Judul Post')
+                    ->weight('bold')
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('slug')
+                    ->sortable(),
+                TextColumn::make('category.name')
+                    ->sortable(),
+                ColorColumn::make('color')
+                    ->label('Color')
+                    ->sortable(),
                 ImageColumn::make('image')
-                    ->disk('public'),
+                    ->disk('public')
+                    ->sortable(),
+                TextColumn::make('created_at')
+                    ->label('Created At')
+                    ->dateTime()
+                    ->sortable(),
                 IconColumn::make('published')
                     ->boolean()
                     ->label('Published')
@@ -38,7 +51,7 @@ class PostsTable
                         'Draft' => 'danger',     // Merah
                         default => 'gray',
                     }),
-            ])
+            ])->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
