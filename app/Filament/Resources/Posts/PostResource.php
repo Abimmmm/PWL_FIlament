@@ -30,14 +30,7 @@ class PostResource extends Resource
 
     public static function table(Table $table): Table
     {
-       return $table
-        ->columns([
-            IconColumn::make('is_active')
-                ->label('Status')
-                ->boolean()
-                ->trueColor('success')
-                ->falseColor('danger'),
-        ]);
+       return PostsTable::configure($table);
     }
 
     public static function getRelations(): array

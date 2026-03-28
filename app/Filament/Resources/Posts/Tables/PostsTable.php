@@ -51,7 +51,7 @@ class PostsTable
                         'Draft' => 'danger',     // Merah
                         default => 'gray',
                     }),
-            ])->defaultSort('created_at', 'desc')
+            ])->defaultSort('title', 'desc')
             ->filters([
                 //
             ])
