@@ -20,35 +20,51 @@ class PostsTable
     {
         return $table
             ->columns([
+                TextColumn::make('id')
+                    ->label('ID')
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->sortable(),
                 TextColumn::make('title')
                     ->label('Judul Post')
                     ->weight('bold')
                     ->sortable()
+                    ->toggleable()
                     ->searchable(),
                 TextColumn::make('slug')
                     ->sortable()
+                    ->toggleable()
                     ->searchable(),
                 TextColumn::make('category.name')
                     ->sortable()
+                    ->toggleable()
                     ->searchable(),
                 ColorColumn::make('color')
                     ->label('Color')
+                    ->toggleable()
                     ->sortable(),
                 ImageColumn::make('image')
                     ->disk('public')
+                    ->toggleable()
                     ->sortable(),
                 TextColumn::make('created_at')
                     ->label('Created At')
                     ->dateTime()
+                    ->toggleable()
                     ->sortable(),
+                TextColumn::make('tags')
+                    ->label('Tags')
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->sortable()
+                    ->searchable(),
                 IconColumn::make('published')
                     ->boolean()
+                    ->toggleable()
                     ->label('Published')
                     ->trueIcon('heroicon-o-check-circle')
                     ->falseIcon('heroicon-o-x-circle'),
-                //
                 TextColumn::make('published')
-                    ->badge() // Mengaktifkan fitur badge
+                    ->badge()
+                    ->toggleable()
                     ->label('Status')
                     ->getStateUsing(fn ($record): string => $record->published ? 'Published' : 'Draft')
                     ->color(fn (string $state): string => match ($state) {
@@ -56,7 +72,7 @@ class PostsTable
                         'Draft' => 'danger',     // Merah
                         default => 'gray',
                     }),
-            ])->defaultSort('title', 'desc')
+            ])->defaultSort('created_at', 'asc')
             ->filters([
                 Filter::make('created_at')
                     ->label('Creation Date')
